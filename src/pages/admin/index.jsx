@@ -4,6 +4,8 @@ import withLayout from "@/layouts/withLayout";
 import DefaultCard from "@/components/DefaultCard";
 import CardBasic from "@/components/CardBasic";
 import { useOverview } from "@/query/useOverview";
+import AverageCard from "@/components/AverageCard";
+import PrecentageCard from "@/components/PrecentageCard";
 
 const BarChart = dynamic(() => import('@/components/BarChart'), { ssr: false });
 
@@ -68,21 +70,11 @@ const AdminPage = () => {
         <div className="grid w-full grid-cols-1 justify-center">
             <div className="p-6 w-full bg-white border border-gray-200 rounded-lg shadow mb-4">
                 <h3 className="text-2xl text-green-700 font-semibold text-gray-800 mb-4">Average</h3>
-                <div className="grid lg:grid-cols-4 gap-4 grid-cols-2">
-                    <DefaultCard image="celcius" subTitle="Celsius (°C)" title="SUHU" value="100%" />
-                    <DefaultCard image="kelembapan" subTitle="Relative (RH)" title="UDARA" value="46.7%" />
-                    <DefaultCard image="cahaya" subTitle="LUX (lux)" title="CAHAYA" value="2488lux" />
-                    <DefaultCard image="tanah" subTitle="Relative (RH)" title="TANAH" value="66.7%" />
-                </div>
+                <AverageCard />
             </div>
             <div className="p-6 w-full bg-white border border-gray-200 rounded-lg shadow mb-4">
                 <h3 className="text-2xl text-green-700 font-semibold text-gray-800 mb-4">Percentage of Ideal</h3>
-                <div className="grid lg:grid-cols-4 gap-4 grid-cols-2">
-                    <CardBasic subTitle="Celsius (°C)" title="SUHU" value="100%" />
-                    <CardBasic subTitle="Relative (RH)" title="UDARA" value="46.7%" />
-                    <CardBasic subTitle="LUX (lux)" title="CAHAYA" value="2488lux" />
-                    <CardBasic subTitle="Relative (RH)" title="TANAH" value="66.7%" />
-                </div>
+                <PrecentageCard />
             </div>
             <div className="p-6 w-full bg-white border border-gray-200 rounded-lg shadow mb-4">
                 <div>

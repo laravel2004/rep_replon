@@ -66,13 +66,13 @@ const Monitoring = () => {
                     <option value="12">Greenhouse 12</option>
                 </select>
                 <div className="grid lg:grid-cols-4 gap-4 grid-cols-2">
-                    <DefaultCard image="celcius" subTitle="Celsius (°C)" title="SUHU"
+                    <DefaultCard backgroud={data && data.temp > 20 && data.temp < 38 ? 'bg-green-light' : ''} image="celcius" subTitle="Celsius (°C)" title="SUHU"
                                  value={`${data?.temp || 'N/A'} °C`}/>
-                    <DefaultCard image="kelembapan" subTitle="Relative (RH)" title="UDARA"
+                    <DefaultCard backgroud={data && data.humid > 20 && data.humid < 85 ? 'bg-green-light' : ''} image="kelembapan" subTitle="Relative (RH)" title="UDARA"
                                  value={`${data?.humid || 'N/A'}%`}/>
-                    <DefaultCard image="cahaya" subTitle="LUX (lux)" title="CAHAYA"
+                    <DefaultCard backgroud={data && data.lumen > 1 && data.lumen < 50000 ? 'bg-green-light' : ''} image="cahaya" subTitle="LUX (lux)" title="CAHAYA"
                                  value={`${data?.lumen || 'N/A'} lux`}/>
-                    <DefaultCard image="tanah" subTitle="Relative (RH)" title="TANAH"
+                    <DefaultCard backgroud={data && data.soil > 1 && data.soil < 85 ? 'bg-green-light' : ''} image="tanah" subTitle="Relative (RH)" title="TANAH"
                                  value={`${data?.soil || 'N/A'}%`}/>
                 </div>
             </div>

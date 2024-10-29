@@ -1,21 +1,39 @@
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import {useLogin} from "@/query/useLogin";
+import {useRouter} from "next/router";
+import {useEffect} from "react";
 
 export default function Home() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const mutation = useLogin();
+    const mutation =  useLogin();
+    const router = useRouter();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         mutation.mutate(data);
     };
 
+    useEffect(() => {
+        if (mutation.isSuccess) {
+            router.push('/admin');
+        }
+    }, [mutation.isSuccess, router]);
+
+    if(mutation.isLoading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <p className="text-2xl">Loading...</p>
+            </div>
+        );
+    }
+
+
     return (
-        <div className="bg-green-light h-screen grid grid-cols-1 lg:grid-cols-2">
+        <div className="bg-green-light grid grid-cols-1 lg:grid-cols-2">
             <div className="flex flex-col p-4 lg:p-0 justify-center items-center">
-                <div className="flex justify-center gap-2 items-center mb-8">
-                    <Image src={`/assets/images/logo.png`} alt="Logo" width={150} height={150} />
-                    <h1 className="text-4xl font-bold text-gray-800">DASHBOARD REPLON</h1>
+                <div className="flex justify-center flex-col lg:flex-row items-center mb-8">
+                    <Image src={`/assets/images/logo.png`} alt="Logo" width={300} height={300} />
+                    <h1 className="text-4xl text-center font-bold text-gray-800">DASHBOARD REPLON</h1>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm">
                     <h2 className="text-2xl mb-4">Login</h2>
@@ -59,7 +77,7 @@ export default function Home() {
                     )}
                 </form>
             </div>
-            <div className="overflow-hidden hidden lg:inline">
+            <div className="overflow-hidden lg:h-screen hidden lg:inline">
                 <Image src={`/assets/images/background.png`} alt="Background" layout="responsive" width={500} height={300} />
             </div>
         </div>
