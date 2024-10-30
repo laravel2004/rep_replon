@@ -6,8 +6,7 @@ import TimeSeries from "@/components/TimeSeries";
 import CardBasic from "@/components/CardBasic";
 import PumpStatus from "@/components/PumpStatus";
 import dynamic from "next/dynamic";
-
-const ScatterChart = dynamic(() => import('@/components/ScatterChart'), { ssr: false });
+import ScatterPlotMonitoring from "@/components/ScatterPlotMonitoring";
 
 const Monitoring = () => {
     const [selectedType, setSelectedType] = useState('1');
@@ -18,26 +17,6 @@ const Monitoring = () => {
     const handleOnChange = (e) => {
         setSelectedType(e.target.value); // Update the selected type
     };
-
-    const options = {
-        colors: ['#228B22'],
-        chart: {
-            id: 'basic-bar',
-            zoom : {
-                enabled: false,
-            }
-        },
-        xaxis: {
-            categories: ['32', '34', '36', '38', '40', '42']
-        }
-    };
-
-    const series = [
-        {
-            name: "temp-humidity", // Update series name based on selected type
-            data: [30, 32, 34, 36, 38, 40]
-        }
-    ];
 
 
     if (isLoading) return <p className="flex justify-center items-center">Loading...</p>;
@@ -83,20 +62,7 @@ const Monitoring = () => {
                 <div className=" p-6 lg:w-1/3 w-full bg-white border border-gray-200 rounded-lg shadow mb-4">
                     <PumpStatus pumpStatus={data?.pump || 'N/A'} title="Status Pompa"/>
                 </div>
-                <div className=" p-2 lg:w-3/4 w-full flex flex-col lg:flex-row gap-2 bg-white border border-gray-200 rounded-lg shadow mb-4">
-                    <div className="p-1 lg:w-1/3 bg-slate-100 border border-gray-200 rounded-lg shadow mb-4">
-                        <h4 className="text-center text-xs font-semibold text-gray-800">Scatter Plot of Temperature with Humidity</h4>
-                        <ScatterChart options={options} series={series} width="100%"/>
-                    </div>
-                    <div className="p-1 lg:w-1/3 bg-slate-100 border border-gray-200 rounded-lg shadow mb-4">
-                        <h4 className="text-center text-xs font-semibold text-gray-800">Scatter Plot of Temperature vs Light Intensity</h4>
-                        <ScatterChart options={options} series={series} width="100%"/>
-                    </div>
-                    <div className="p-1 lg:w-1/3 bg-slate-100 border border-gray-200 rounded-lg shadow mb-4">
-                        <h4 className="text-center text-xs font-semibold text-gray-800">Scatter Plot of Temperature vs Light Intensity</h4>
-                        <ScatterChart options={options} series={series} width="100%"/>
-                    </div>
-                </div>
+                <ScatterPlotMonitoring gh={selectedType} />
             </div>
         </div>
     );
